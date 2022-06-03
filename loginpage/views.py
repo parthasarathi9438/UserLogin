@@ -21,7 +21,7 @@ class RegisterAPI(generics.GenericAPIView):
         "token": AuthToken.objects.create(user)[1]
         })
 
-
+#login parthasarathi
 class LoginAPI(LoginView):
     permission_classes = [permissions.AllowAny]
 
