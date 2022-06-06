@@ -1,12 +1,13 @@
 from django.shortcuts import render
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, viewsets
 from rest_framework.response import Response
 from knox.models import AuthToken
-from .serializers import UserSerializer, RegisterSerializer
+from .serializers import UserSerializer, RegisterSerializer, ProfileSerializer, TweetSerializer
 from django.contrib.auth import login
 from rest_framework import permissions
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox.views import LoginView
+from loginpage.models import Profile, Tweet
 
 
 class RegisterAPI(generics.GenericAPIView):
@@ -17,7 +18,7 @@ class RegisterAPI(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         return Response({
-        "user": UserSerializer(user, context=self.get_serializer_context()).data,
+        "user": UserSerializer(user).data,
         "token": AuthToken.objects.create(user)[1]
         })
 
@@ -31,3 +32,14 @@ class LoginAPI(LoginView):
         user = serializer.validated_data['user']
         login(request, user)
         return super(LoginAPI, self).post(request, format=None)
+
+
+class ProfileViewSet(viewsets.ModelViewSet):
+    serializer_class = ProfileSerializer
+    queryset = Profile.objects.all()
+    permission_classes = [permissions.AllowAny]
+
+class TweetViewSet(viewsets.ModelViewSet):
+    serializer_class = TweetSerializer
+    queryset = Tweet.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
