@@ -33,8 +33,8 @@ class TweetSerializer(serializers.ModelSerializer):
     # user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     class Meta:
         model = Tweet
-        # fields = "__all__"
-        fields = ['id', 'status', 'image','created_on', 'updated_on', 'user']
+        fields = "__all__"
+        # fields = ['id', 'status', 'image','created_on', 'updated_on', 'user']
 
 
 class FollowerSerializer(serializers.ModelSerializer):
