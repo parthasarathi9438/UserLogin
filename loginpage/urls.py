@@ -6,6 +6,7 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register('profile', views.ProfileViewSet)
 router.register('tweet', views.TweetViewSet)
+router.register('follower', views.FollowerViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

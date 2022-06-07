@@ -14,3 +14,10 @@ class Tweet(models.Model):
     image  = models.ImageField(blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_on = models.DateTimeField(auto_now=True, blank=True, null=True)
+
+
+class Follower(models.Model):
+    user_follow = models.ForeignKey(User, on_delete=models.CASCADE)
+    follow = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follow')
+    created_on = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_on = models.DateTimeField(auto_now=True, blank=True, null=True)
